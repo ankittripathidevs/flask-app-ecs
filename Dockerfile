@@ -1,24 +1,20 @@
-# Base image (OS)
-
+# (1) Use the latest Python base image
 FROM python:3.14-slim
 
-# Working directory
-
+# (2) Set the working directory inside the container
 WORKDIR /app
 
-# Copy src code to container
+# (3) Copy requirements file from HOST to CONTAINER
+COPY requirements.txt .
 
+# (4) Copy the application files from HOST to CONTAINER
 COPY . .
 
-# Run the build commands
-
+# (5) Install Python dependencies
 RUN pip install -r requirements.txt
 
-# expose port 80
-
+# (6) Document that the application uses port 80
 EXPOSE 80
 
-# serve the app / run the app (keep it running)
-
-CMD ["python","run.py"]
-
+# (7) Run the application when the container starts
+CMD ["python", "run.py"]
